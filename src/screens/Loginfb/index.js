@@ -8,18 +8,33 @@ class LoginFb extends Component {
 
     loginFb(){
         const provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(provider).then((result)=> {
+        firebase.auth().signInWithPopup(provider)
+        .then((result)=> {
             // This gives you a Facebook Access Token. You can use it to access the Facebook API.
             // var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
             console.log('user',user)
-
-            this.props.history.replace('/Form1',{
-                displayName: user.displayName,
-                userId : user.uid ,
-                email : user.email 
+           
+            let db = firebase.database()
+            db.ref(`Users/${user.uid}`)
+            .once("value",res=>{
+                console.log('firebase user',res.val())
+                let userData = res.val()
+                if(res.key === user.uid){
+                    this.props.history.replace('/dashboard',{
+                        userData
+                    })
+                }
+                else {
+                    // this.props.history.replace('/Form1',{
+                    //     displayName: user.displayName,
+                    //     userId : user.uid ,
+                    //     email : user.email 
+                    // })
+                }
             })
+           
         
             // ...
           }).catch(function(error) {
