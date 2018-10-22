@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import firebase from '../../config/firebase';
 
 class Form1 extends Component {
     constructor(props) {
@@ -7,16 +6,19 @@ class Form1 extends Component {
         this.state = {
             displayName:'' ,
             nickname :'' ,
-            phoneno : ''
+            phoneno : '',
+            userId :'' ,
+            email :'',
+
         }
     }
     
 
     gotoForm2(){
-        const { displayName , nickname ,phoneno } = this.state
+        const { displayName , nickname ,phoneno , userId , email} = this.state
 
        if(nickname && phoneno ){
-        this.props.history.push('/Form2',{ displayName , nickname , phoneno })
+        this.props.history.push('/Form2',{ displayName , nickname , phoneno , userId , email })
        }
        else{
            alert("PLEASE FILL PROPER DETAILS")
@@ -25,11 +27,15 @@ class Form1 extends Component {
     }
 
 componentDidMount(){
-
+        // const { displayName }= this.state;
     console.log("form1",this.props.history.location.state)
-
+    let getDisplayname = this.props.history.location.state.displayName || ''
+    let getEmail = this.props.history.location.state.email || ''
+    let getUid = this.props.history.location.state.userId || ''
     this.setState({
-        displayName : this.props.history.location.state.displayName
+        displayName : getDisplayname ,
+        email : getEmail ,
+        userId : getUid
     })
 }
 
@@ -42,7 +48,7 @@ componentDidMount(){
                 <h3>{displayName}</h3>
                 <h1>FORM1</h1>
                         
-                        <form action="" method="" role="" width='50%' style={{width:'50%',margin:'auto'}}>
+                        <form width='50%' style={{width:'50%',margin:'auto'}}>
                           
                         
                             <div className="form-group">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-// import firebase from '../../config/firebase'
+import firebase from '../../config/firebase'
 
 
 
@@ -12,7 +12,8 @@ class Map extends Component {
     
 
     this.state ={
-     coords : null
+     coords : null,
+     userInfo:{}
     }
 
     this.updateCoords = this.updateCoords.bind(this);
@@ -20,9 +21,34 @@ class Map extends Component {
     
 }
 
-componentDidMount(){
-this.setPosition()
 
+componentDidMount() {
+  this.setPosition()
+  console.log('Map', this.props.history.location.state)        
+
+  this.setState({
+          userInfo : this.props.history.location.state || {} ,
+         
+  })
+}
+
+gotoDashboard(){
+const { userInfo , coords } = this.state
+    userInfo.userInfo.coords = coords ;
+    console.log('userInfo coords',userInfo.userInfo.coords)
+
+    this.setState({
+      userInfo
+    })
+    console.log('userInfo',userInfo)
+  let db = firebase.database()
+      const userDetails = userInfo.userInfo
+    db.ref(`Users/${userInfo.userInfo.userInfo.userId}`)
+    .set({
+      userDetails
+    })
+
+  // this.props.history.push('/dashboard')
 }
 
 setPosition(){
@@ -66,8 +92,13 @@ updateCoords({latitude,longitude}){
             containerElement={<div style={{ height: `400px` }} />}
             mapElement={<div style={{ height: `100%` }} />}
           />}
-<div>
-          
+        <div>
+             
+             <button type="button"
+             
+             onClick={()=>{this.gotoDashboard()}}
+             class="btn btn-large btn-block btn-success">NEXT</button>
+             
         </div>
       </div>
         
