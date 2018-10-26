@@ -58,7 +58,17 @@ class SwipeableTextMobileStepper extends React.Component {
      userObj:[]
 
   };
+  signOUT(){
+    alert('work')
+    console.log('props dashboard',this.props)
+    firebase.auth().signOut().then(()=> {
 
+        this.props.history.replace('/',{})
+        // Sign-out successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+}
   componentDidMount(){
 
         const { tutorialSteps }  = this.state ;
@@ -92,6 +102,16 @@ class SwipeableTextMobileStepper extends React.Component {
     const maxSteps = tutorialSteps.length;
 
     return (
+    <div>
+
+            
+            <button type="button" class="btn btn-large btn-primary"
+            
+            onClick={()=>this.signOUT()}
+            >LOGOUT</button>
+            <br/>
+            
+    
       <div className={classes.root}  style={{margin:'auto',border:'2px solid red',paddingBottom:'2%',borderRadius:'10px'}} >
         <Paper square elevation={0} className={classes.header}>
          
@@ -131,6 +151,8 @@ class SwipeableTextMobileStepper extends React.Component {
         />
          <Typography  variant="display1"  align={"center"}>  FULLNAME </Typography>
         <Typography  variant="title" color="secondary"  align={"center"}>  NICKNAME </Typography>
+      </div>
+
       </div>
     );
   }
