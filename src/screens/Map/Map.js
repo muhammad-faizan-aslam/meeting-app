@@ -48,7 +48,7 @@ const { userInfo , coords } = this.state
       userDetails
     })
 
-  // this.props.history.push('/dashboard')
+  this.props.history.replace('/dashboard')
 }
 
 setPosition(){

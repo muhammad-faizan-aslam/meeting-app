@@ -20,20 +20,32 @@ class LoginFb extends Component {
             db.ref(`Users/${user.uid}`)
             .once("value",res=>{
                 console.log('firebase user',res.val())
-                let userData = res.val()
-                if(res.key === user.uid){
-                    this.props.history.replace('/dashboard',{
-                        userData
+                const userData = res.val()
+                console.log("key user",res.key)
+                console.log("uid user",user.uid)
+
+                if(userData){
+
+                    if( userData.userDetails.userInfo.userId === user.uid){
+                        this.props.history.replace('/dashboard',{
+                            userData
+                        })
+                    }
+                  
+                }  else {
+                    this.props.history.replace('/Form1',{
+                        displayName: user.displayName,
+                        userId : user.uid ,
+                        email : user.email 
                     })
                 }
-                else {
-                    // this.props.history.replace('/Form1',{
-                    //     displayName: user.displayName,
-                    //     userId : user.uid ,
-                    //     email : user.email 
-                    // })
-                }
+                
             })
+            // this.props.history.replace('/Form1',{
+            //                 displayName: user.displayName,
+            //                 userId : user.uid ,
+            //                 email : user.email 
+            //             })
            
         
             // ...

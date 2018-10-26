@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import firebase from '../../config/firebase';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -14,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 // import Button from '@material-ui/core/Button';
 import swal from 'sweetalert';
+// import FbLogin from '../UserForm/FbLogin';
 
 const styles = theme => ({
     layout: {
@@ -51,8 +54,68 @@ function loginEmail(){
     swal('LOGIN WITH FACEBOOK')
 }  
 
+
+function loginFb(history){
+  const provider = new firebase.auth.FacebookAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+  .then((result)=> {
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      // var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      console.log('user',user)
+     
+      let db = firebase.database()
+      db.ref(`Users/${user.uid}`)
+      .once("value",res=>{
+          console.log('firebase user',res.val())
+          const userData = res.val()
+          console.log("key user",res.key)
+          console.log("uid user",user.uid)
+
+          if(userData){
+
+              if( userData.userDetails.userInfo.userId === user.uid){
+                  history.replace('/dashboard',{
+                      userData
+                  })
+              }
+            
+          }  else {
+             history.replace('/Form1',{
+                  displayName: user.displayName,
+                  userId : user.uid ,
+                  email : user.email 
+              })
+          }
+          
+      })
+      // this.props.history.replace('/Form1',{
+      //                 displayName: user.displayName,
+      //                 userId : user.uid ,
+      //                 email : user.email 
+      //             })
+     
+  
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      // var errorCode = error.code;
+      // var errorMessage = error.message;
+      // The email of the user's account used.
+      // var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      // var credential = error.credential;
+      // ...
+    });
+ 
+ 
+  // this.props.history.push('/Form1')
+}  
+
+
  const SignIn = (props) => {
-    const { classes } = props;
+    const { classes , history } = props;
     
     
   
@@ -101,6 +164,8 @@ function loginEmail(){
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={()=>{loginFb(history)}}
+
               >
                 Login With Facebook
               </Button>
@@ -118,7 +183,7 @@ function loginEmail(){
 
 
 
-  export default withStyles(styles)(SignIn);
+  export default withStyles(styles)(withRouter(SignIn));
   
 // class App extends Component {
 //     render() {

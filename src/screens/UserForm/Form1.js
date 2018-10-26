@@ -27,7 +27,7 @@ class Form1 extends Component {
     }
 
 componentDidMount(){
-        // const { displayName }= this.state;
+        const { displayName }= this.state;
     console.log("form1",this.props.history.location.state)
     let getDisplayname = this.props.history.location.state.displayName || ''
     let getEmail = this.props.history.location.state.email || ''
