@@ -24,16 +24,11 @@ const styles = theme => ({
 });
 
 class FormOne extends React.Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
         this.state = {
-            displayName:'' ,
-            nickname :'' ,
-            phoneno : '',
-            userId :'' ,
-            email :'',
-        };
+
+        }
     };
 
     handleChange = (e) => {
@@ -43,27 +38,20 @@ class FormOne extends React.Component {
     };
 
     handleSubmit = (e) => {
+
         e.preventDefault();
+        const { state }= this.props.history.location ;
+        const { nickname ,phoneno } = this.state ;
 
-        const { displayName , nickname ,phoneno , userId , email} = this.state
+        // console.log('nickname =========>',state)
+        // console.log("nickname form",this.props.history.location.state)
 
+        this.props.history.push('/Form2',{ ...state , nickname , phoneno  })
         
-        
 
-        this.props.history.push('/Form2',{ displayName , nickname , phoneno , userId , email })
+       
     };
-    componentDidMount(){
-        const { displayName }= this.state;
-    console.log("form1",this.props.history.location.state)
-    let getDisplayname = this.props.history.location.state.displayName || ''
-    let getEmail = this.props.history.location.state.email || ''
-    let getUid = this.props.history.location.state.userId || ''
-    this.setState({
-        displayName : getDisplayname ,
-        email : getEmail ,
-        userId : getUid
-    })
-}
+    
 
     render() {
         const {

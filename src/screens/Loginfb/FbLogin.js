@@ -62,25 +62,23 @@ function loginFb(history){
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       // var token = result.credential.accessToken;
       // The signed-in user info.
-      var user = result.user;
-      console.log('user',user)
+     let user = result.user;
+          // console.log('user',user)
      
       let db = firebase.database()
       db.ref(`Users/${user.uid}`)
       .once("value",res=>{
-          console.log('firebase user',res.val())
-          const userData = res.val()
-          console.log("key user",res.key)
-          console.log("uid user",user.uid)
 
-          if(userData){
+               const userData = res.val()
+  
+          // console.log('firebase user',res.val())
+          // console.log("key user",res.key)
+          // console.log("uid user",user.uid)
 
-              if( userData.userDetails.userInfo.userId === user.uid){
-                  history.replace('/dashboard',{
-                      userData
-                  })
-              }
-            
+         if(userData){
+                  history.replace('/dashboard',
+                    res.val()
+                  )
           }  else {
              history.replace('/Form1',{
                   displayName: user.displayName,
@@ -90,14 +88,9 @@ function loginFb(history){
           }
           
       })
-      // this.props.history.replace('/Form1',{
-      //                 displayName: user.displayName,
-      //                 userId : user.uid ,
-      //                 email : user.email 
-      //             })
-     
+    
   
-      // ...
+     
     }).catch(function(error) {
       // Handle Errors here.
       // var errorCode = error.code;
@@ -110,7 +103,7 @@ function loginFb(history){
     });
  
  
-  // this.props.history.push('/Form1')
+ 
 }  
 
 

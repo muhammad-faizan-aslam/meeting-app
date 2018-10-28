@@ -8,13 +8,10 @@ class Map extends Component {
 
   constructor(props){
     super(props)
-
     
-
-    this.state ={
-     coords : null,
-     userInfo:{}
-    }
+    this.state = {
+                   coords : null
+                 }
 
     this.updateCoords = this.updateCoords.bind(this);
 
@@ -24,51 +21,63 @@ class Map extends Component {
 
 componentDidMount() {
   this.setPosition()
-  console.log('Map', this.props.history.location.state)        
-
-  this.setState({
-          userInfo : this.props.history.location.state || {} ,
-         
-  })
 }
 
 gotoDashboard(){
-const { userInfo , coords } = this.state
-    userInfo.userInfo.coords = coords ;
-    console.log('userInfo coords',userInfo.userInfo.coords)
 
-    this.setState({
-      userInfo
+          const { coords } = this.state ;
+          const { state }= this.props.history.location ;
+
+          console.log('MAP  LOCATION  =========>',state)
+          console.log('MAP  LOCATION COORDs =========>',coords)
+
+          const UID = firebase.auth().currentUser.uid ;
+
+          console.log('MAP  LOCATION UID =========>',UID)
+
+          let db = firebase.database()
+            
+            db.ref(`Users/${UID}`)
+            .set({
+                  ...state,...coords,isMeeting:false,notification:[]
+            })
+
+            db.ref(`Users/${UID}`)
+               .once('value',snapshot=>{
+
+                if(snapshot.val()){
+                                    this.props.history.replace('/dashboard',snapshot.val())
+                                  }
+                else{
+                     alert('USER DELETED')
+                    }
+      
     })
-    console.log('userInfo',userInfo)
-  let db = firebase.database()
-      const userDetails = userInfo.userInfo
-    db.ref(`Users/${userInfo.userInfo.userInfo.userId}`)
-    .set({
-      userDetails
-    })
+ 
 
-  this.props.history.replace('/dashboard')
-}
 
+  }
 setPosition(){
-
+ 
   navigator.geolocation.getCurrentPosition(position=>{
-   
+ 
     this.setState({
-     coords: position.coords 
-   })
+              coords: {
+                          latitude: position.coords.latitude,
+                          longitude: position.coords.longitude
+                        }
+                 })
 
- })
-}
+          })
+          }
 
 updateCoords({latitude,longitude}){
-  console.log("long",longitude)
-  this.setState({
-    coords : {latitude,longitude}
-  })
+  // console.log("long",longitude)
+            this.setState({
+                   coords : {latitude,longitude}
+            })
 
-}
+                                }
 
   render() {
     
@@ -77,9 +86,6 @@ updateCoords({latitude,longitude}){
     return (
       
       <div className="App">
-      
-                
-            
 
            { coords && <MyMapComponent
 
@@ -92,14 +98,14 @@ updateCoords({latitude,longitude}){
             containerElement={<div style={{ height: `400px` }} />}
             mapElement={<div style={{ height: `100%` }} />}
           />}
-        <div>
-             
-             <button type="button"
-             
-             onClick={()=>{this.gotoDashboard()}}
-             class="btn btn-large btn-block btn-success">NEXT</button>
-             
-        </div>
+
+          <div>
+              
+              <button type="button"
+              onClick={()=>{this.gotoDashboard()}}
+              class="btn btn-large btn-block btn-success">NEXT</button>
+              
+          </div>
       </div>
         
 

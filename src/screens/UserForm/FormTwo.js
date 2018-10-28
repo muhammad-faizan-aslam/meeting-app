@@ -22,10 +22,9 @@ class FormTwo extends React.Component {
         super(props);
         
         this.state = {
-            userInfo : this.props.history.location.state || '' ,
+
             imagesArr:[],
             imagesUrlArr:[],
-            i:0
            
 
         }
@@ -33,12 +32,7 @@ class FormTwo extends React.Component {
     
 
     componentDidUpdate() {
-        console.log('form2', this.props.history.location.state)        
-
-        // this.setState({
-        //         userInfo : this.props.history.location.state || '',
-               
-        // })
+        // console.log('CHOOSE IMAGES FORM PROPS RECEIVES ', this.props.history.location.state)
     };
 
     handlePics(e){
@@ -51,22 +45,23 @@ class FormTwo extends React.Component {
                 imagesArr : imagesArr 
             })
          }else{
-             alert("bas 3 pic kar bhai")
+            alert("Not select images more than 3 ")
          }
-         console.log("Imageholder",imagesArr)
+        //  console.log("Imageholder",imagesArr)
      }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { imagesArr, userInfo , imagesUrlArr } = this.state;
-      
+        const { imagesArr , imagesUrlArr } = this.state;
+        const { state }= this.props.history.location ;
+        // console.log('images choose =========>',state)
         e.preventDefault()
          if(imagesArr.length === 3 ){
-             console.log("--------------------", imagesArr)
+            //  console.log("--------------------", imagesArr)
         
              imagesArr.map(img=>{
  
-                  console.log("singleimg", img.name)
+                //   console.log("singleimg", img.name)
                  let filename = img.name
              let StorageRef = firebase.storage().ref(`images/${filename}`) ;
                  StorageRef.put(img)
@@ -75,42 +70,31 @@ class FormTwo extends React.Component {
                      return res.ref.getDownloadURL() ;
                  })
                  .then(imageURL=>{
-                     alert("ok",imageURL)
+                    //  alert("ok",imageURL)
  
                       imagesUrlArr.push(imageURL)
                       
                      this.setState({
                          imagesUrlArr ,
-                         // [userInfo.imgURL] : imagesUrlArr
                      })
  
-                     // this.props.history.push('/Form3',{userInfo,imagesUrlArr})
                    if(imagesUrlArr.length === 3 ){
                  
-                     // userInfo.push(imagesUrlArr)
-                     // this.setState({
-                     //     [userInfo.img] : imagesUrlArr
-                     // })
-
-        //               this.setState({
-        //         userInfo : this.props.history.location.state || '',
-               
-        // })
-                     this.props.history.push('/Form3',{userInfo,imagesUrlArr})
+                     this.props.history.push('/Form3',{...state,imagesUrlArr})
                    }
                    
-                     return console.log('image URL',imagesUrlArr)
+                    //  return console.log('image URL',imagesUrlArr)
                  })
  
                  return img
                  
              })
             
-             alert("3 hen")
+            //  alert("3 hen")
             
          }
          else{
-             alert("3 nahi hen")
+            alert("Please Select All three images")
          }
     };
 

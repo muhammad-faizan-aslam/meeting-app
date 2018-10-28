@@ -11,24 +11,24 @@ import firebase from '../../config/firebase'
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-// const tutorialSteps = [
-// //   {
-// //     label: 'San Francisco – Oakland Bay Bridge, United States',
-// //     imgPath:
-// //       'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-// //   },
-// //   {
-// //     label: 'Bird',
-// //     imgPath:
-// //       'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-// //   },
-// //   {
-// //     label: 'Bali, Indonesia',
-// //     imgPath:
-// //       'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-// //   }
+const tutorialSteps = [
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bird',
+    imgPath:
+      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bali, Indonesia',
+    imgPath:
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
+  }
   
-// ];
+];
 
 const styles = theme => ({
   root: {
@@ -54,8 +54,7 @@ const styles = theme => ({
 class SwipeableTextMobileStepper extends React.Component {
   state = {
     activeStep: 0,
-     tutorialSteps : [] ,
-     userObj:[]
+    //  tutorialSteps : [] ,
 
   };
   signOUT(){
@@ -71,25 +70,29 @@ class SwipeableTextMobileStepper extends React.Component {
 }
   componentDidMount(){
 
-        const { tutorialSteps }  = this.state ;
-    
-      let db = firebase.database();
-      db.ref(`Users/lwjftxk8dJguGUdLzSN2nlO7rH83`)
-      .once('value',res=>{
-          console.log('res',res.val().userDetails)
-          let imgurl = res.val().userDetails.imagesUrlArr ;
-          
-          imgurl.map(url=>{
-              let obj = {};
-              obj.imgPath = url 
-              console.log('obj img',obj)
-               tutorialSteps.push(obj)
-              console.log("url",url)
-                this.setState({
-                    tutorialSteps
-                })
-          })
+      // const { tutorialSteps }  = this.state ;
+      const { state } = this.props.history.location ;
+      console.log("card props recieves",state)
+      this.setState({
+        myData : state 
       })
+      // let db = firebase.database();
+      // db.ref(`Users/lwjftxk8dJguGUdLzSN2nlO7rH83`)
+      // .once('value',res=>{
+      //     console.log('res',res.val().userDetails)
+      //     let imgurl = res.val().userDetails.imagesUrlArr ;
+          
+      //     imgurl.map(url=>{
+      //         let obj = {};
+      //         obj.imgPath = url 
+      //         console.log('obj img',obj)
+      //          tutorialSteps.push(obj)
+      //         console.log("url",url)
+      //           this.setState({
+      //               tutorialSteps
+      //           })
+      //     })
+      // })
   }
   
   handleStepChange = activeStep => {
@@ -98,7 +101,7 @@ class SwipeableTextMobileStepper extends React.Component {
 
   render() {
     const { classes, theme } = this.props;
-    const { activeStep , tutorialSteps } = this.state;
+    const { activeStep } = this.state;
     const maxSteps = tutorialSteps.length;
 
     return (

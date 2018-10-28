@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Form3 extends Component {
     constructor(props) {
         super(props);
-        this.state  ={
+        this.state  = {
         
             isCocktail :false ,
             isJuice : false ,
@@ -12,10 +12,9 @@ class Form3 extends Component {
             ismin20 : false ,
             ismin60 : false ,
             ismin120 : false ,
-
-            beveragesOBJ :{},
-            timeduarationOBJ :{},
-            userInfo :{}
+      
+            beveragesArr:[],
+            timedurationArr : []
         }
 
      
@@ -24,40 +23,55 @@ class Form3 extends Component {
 
     componentDidMount() {
 
-        console.log('form3', this.props.history.location.state)        
-
-        this.setState({
-                userInfo : this.props.history.location.state || {} ,
-               
-        })
+      //  const { state }= this.props.history.location ;
+        // console.log('beverages select =========>',state)
+      
     }
     
 
     gotoMap(e){
-        const { userInfo , beveragesOBJ , timeduarationOBJ , isCocktail , isCoffee , isJuice , ismin20 , ismin60 , ismin120 } = this.state;
-       e.preventDefault()
 
-        beveragesOBJ.coffee = isCoffee
-        beveragesOBJ.juice = isJuice
-        beveragesOBJ.cocktail = isCocktail
+      e.preventDefault()
 
-        userInfo.beverages = beveragesOBJ
-        
-        timeduarationOBJ.min20 = ismin20
-        timeduarationOBJ.min60 = ismin60
-        timeduarationOBJ.min120 = ismin120
-        
-        userInfo.timeduration = timeduarationOBJ
-        
-       this.setState({
-       beveragesOBJ ,
-       userInfo
-       })
+     const {  beveragesArr , timedurationArr  , isCocktail , isCoffee , isJuice , ismin20 , ismin60 , ismin120 } = this.state;
+     const { state } = this.props.history.location ;
 
+          if(isCoffee){
+            beveragesArr.push('coffee')
+          }
+          if(isCocktail){
+            beveragesArr.push('cocktail')
+          }
+          if(isJuice){
+            beveragesArr.push('juice')
+          }
+  
+  
+  
+          if(ismin20){
+            timedurationArr.push('min20')
+          }
+          if(ismin60){
+            timedurationArr.push('min60')
+          }
+          if(ismin120){
+            timedurationArr.push('min120')
+          }
+  
+          let beverages = beveragesArr
+  
+          let timeduration = timedurationArr
+        
+        if(beveragesArr.length && timedurationArr.length ){
+         
+          this.props.history.push('/Map',{...state,beverages,timeduration})
+        }
+        
+      
+        else{
+          alert('Please select atleast one beverages and duration')
+        }
        
-
-
-       this.props.history.push('/Map',{userInfo})
     }
 
    
@@ -107,10 +121,8 @@ class Form3 extends Component {
 
   
     render() {
-        const { userInfo , isCocktail , isCoffee , isJuice , ismin20 , ismin60 , ismin120 , beveragesOBJ } = this.state ;
-        // console.log('min20 , 60 , 120 ',ismin20 , ismin60 , ismin120)
-       console.log("bev obj",beveragesOBJ)
-       console.log("userInfo obj",userInfo)
+        const { isCocktail , isCoffee , isJuice , ismin20 , ismin60 , ismin120  } = this.state ;
+      
         return (
             <div>
                   <h2>FORM 3</h2>

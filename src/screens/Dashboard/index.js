@@ -5,7 +5,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+           
         }
         
     }
@@ -23,28 +23,33 @@ class Dashboard extends Component {
     }
 
     gotoCard(){
-        const{userObj} = this.state;
-        console.log("chala")
-        this.props.history.push(`/recommendedpeople`,{userObj})
+
+        
+        const { state } = this.props.history.location ;
+     
+        this.props.history.push(`/recommendedpeople`,state)
     }
 
 
     componentDidMount() {
-        console.log("dashboard props",this.props.history.location.state.userData.userDetails)
+       
+        const { state } = this.props.history.location ;
+      
+        console.log("dashboard props", state )
 
         this.setState({
-            userObj : this.props.history.location.state.userData.userDetails || '' ,
-            isMeeting : this.props.history.location.state.userData.userDetails.meetingset
+            myData : state || '' ,
+            isMeeting : state.isMeeting
         })
 
     }
     
     render() {
-        const { userObj , isMeeting} = this.state;
+        const { myData , isMeeting} = this.state;
         return (
             <div>
                 <h1>Dashboard</h1>
-                <h4>{ userObj && userObj.userInfo.displayName}</h4>
+                <h4>{ myData && myData.displayName}</h4>
 
                 {   ! isMeeting &&
                     <button type="button" 
