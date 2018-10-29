@@ -17,6 +17,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LOGO from './MEETUPLOGO.svg'
+import firebase from '../../config/firebase'
+
 
 
 const styles = theme => ({
@@ -90,10 +92,15 @@ const styles = theme => ({
 });
 
 class PrimarySearchAppBar extends React.Component {
+  constructor(props){
+    super(props)
+  }
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
   };
+
+  
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -112,11 +119,26 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  logout(){
+    this.props.signOUT()
+    console.log('props header dashboard',this.props.history)
+    firebase.auth().signOut().then(()=> {
+
+      this.props.history.replace('/',{})
+      // Sign-out successful.
+    }).catch(function(error) {
+      // An error happened.
+      console.log('error',error)
+    });
+  }
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const { signOut } = this.props
+    console.log('app bar props',this.props)
 
     const renderMenu = (
       <Menu
@@ -128,6 +150,7 @@ class PrimarySearchAppBar extends React.Component {
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={()=>this.logout() }>logOUT</MenuItem>
       </Menu>
     );
 
@@ -174,9 +197,7 @@ class PrimarySearchAppBar extends React.Component {
             
             <img src={LOGO}  alt="Image" width='100'/>
             
-            {/* <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              MEET --> UP
-            </Typography> */}
+         
 
             <div className={classes.search}>
               <div className={classes.searchIcon}>

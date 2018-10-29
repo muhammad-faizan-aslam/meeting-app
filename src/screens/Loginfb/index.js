@@ -56,6 +56,9 @@ function loginEmail(){
 }  
 
 
+
+
+
 function loginFb(history){
   const provider = new firebase.auth.FacebookAuthProvider();
   firebase.auth().signInWithPopup(provider)
@@ -110,8 +113,10 @@ function loginFb(history){
 
  const SignIn = (props) => {
     const { classes , history } = props;
-    
-    
+    const user = firebase.auth().currentUser ;
+   if(user){
+     history.push('/dasboard')
+   }
   
     return (
       <div>

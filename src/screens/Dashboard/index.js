@@ -12,15 +12,17 @@ class Dashboard extends Component {
         
     }
 
-    sign(){
+    signOUT(){
         alert('work')
         console.log('props dashboard',this.props)
+        console.log('props dashboard',this.props.history)
         firebase.auth().signOut().then(()=> {
 
             this.props.history.replace('/',{})
             // Sign-out successful.
           }).catch(function(error) {
             // An error happened.
+            console.log('error',error)
           });
     }
 
@@ -34,10 +36,9 @@ class Dashboard extends Component {
 
 
     componentDidMount() {
-        const user = firebase.auth().currentUser;
-        // if(user){
-           
-        //     const { state } = this.props.history.location ;
+        const user = firebase.auth().currentUser ;
+      
+        // const { state } = this.props.history.location ;
       
         //     console.log("dashboard props", state )
     
@@ -45,11 +46,23 @@ class Dashboard extends Component {
         //         myData : state || '' ,
         //         isMeeting : state.isMeeting
         //     })
-        // }
-        // else{
+        if(user ){
+           
+            const { state } = this.props.history.location ;
+      
+            console.log("dashboard props", state )
+            localStorage.setItem('isUser',JSON.stringify(state))
+    
+            this.setState({
+                myData : state || ''  ,
+                isMeeting : state.isMeeting || '',
+            })
+            // this.props.history.push('/dashboard')
+        }
+        else{
             
-        //     this.props.history.push('/',{})
-        // }
+            this.props.history.push('/',{})
+        }
         
     }
     
@@ -58,7 +71,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <div>
-                    <PrimarySearchAppBar/>
+                    <PrimarySearchAppBar myData={myData} signOUT={this.signOUT} />
                 </div>
                 <h1>Dashboard</h1>
                 <h4>{ myData && myData.displayName}</h4>
@@ -71,10 +84,10 @@ class Dashboard extends Component {
                 }
                 <br/>
                 <br/>
-                <button type="button" 
+                {/* <button type="button" 
                 
-                onClick={()=> this.sign() }
-                className="btn btn-large btn-primary">LOGOUT</button>
+                onClick={()=> this.signOut() }
+                className="btn btn-large btn-primary">LOGOUT</button> */}
                 
             </div>
         );

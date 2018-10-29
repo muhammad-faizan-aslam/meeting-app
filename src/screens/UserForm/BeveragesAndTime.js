@@ -125,6 +125,7 @@ class Form3 extends Component {
         this.setState(prevState => ({
           ismin120 : !prevState.ismin120 ,
         }));
+        
       }
     
     

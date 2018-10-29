@@ -13,8 +13,8 @@ import Card from '../screens/RecommendedPeople/Card'
 
 
 
-export default ()=> {
-
+export default (props)=> {
+        console.log('routes props',props)
        return (
 
             <Switch>
