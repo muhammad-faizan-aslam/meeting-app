@@ -3,6 +3,8 @@ import firebase from '../../config/firebase'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import APPLOGO from '../../Components/AppLogo/AppLogo'
+
 
 //Styles
 const styles = theme => ({
@@ -32,6 +34,15 @@ class FormTwo extends React.Component {
     
 
     componentDidUpdate() {
+        const user = firebase.auth().currentUser;
+        if(user){
+
+        
+        }
+        else{
+            
+            this.props.history.push('/',{})
+        }
         // console.log('CHOOSE IMAGES FORM PROPS RECEIVES ', this.props.history.location.state)
     };
 
@@ -80,7 +91,7 @@ class FormTwo extends React.Component {
  
                    if(imagesUrlArr.length === 3 ){
                  
-                     this.props.history.push('/Form3',{...state,imagesUrlArr})
+                     this.props.history.push('/BeveragesAndTime',{...state,imagesUrlArr})
                    }
                    
                     //  return console.log('image URL',imagesUrlArr)
@@ -105,6 +116,7 @@ class FormTwo extends React.Component {
 
         return (
             <form className={classes.form} onSubmit={(e)=>this.handleSubmit(e)}>
+                <APPLOGO/>
                 <Grid container>
                     <Grid item lg={12}>
                         <input type='file' className={classes.imagePlaceholder} name='pic1' required  onChange={(e)=>this.handlePics(e)} />
@@ -116,7 +128,10 @@ class FormTwo extends React.Component {
                         <input type='file' className={classes.imagePlaceholder} name='pic1' required  onChange={(e)=>this.handlePics(e)} />
                     </Grid>
                     <Grid item lg={12}>
-                        <Button type='submit'>Next</Button>
+                       
+                        
+                        <button type="submit" class="btn btn-large btn-primary">NEXT</button>
+                        
                     </Grid>
                 </Grid>
             </form>

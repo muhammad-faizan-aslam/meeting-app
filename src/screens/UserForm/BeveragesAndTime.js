@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import firebase from '../../config/firebase'
+import APPLOGO from '../../Components/AppLogo/AppLogo'
+
 
 class Form3 extends Component {
     constructor(props) {
@@ -22,7 +25,15 @@ class Form3 extends Component {
     
 
     componentDidMount() {
+      const user = firebase.auth().currentUser;
+      if(user){
 
+      
+      }
+      else{
+          
+          this.props.history.push('/',{})
+      }
       //  const { state }= this.props.history.location ;
         // console.log('beverages select =========>',state)
       
@@ -64,7 +75,7 @@ class Form3 extends Component {
         
         if(beveragesArr.length && timedurationArr.length ){
          
-          this.props.history.push('/Map',{...state,beverages,timeduration})
+          this.props.history.push('/Location',{...state,beverages,timeduration})
         }
         
       
@@ -129,6 +140,7 @@ class Form3 extends Component {
                 <form   width='50%' 
                     onSubmit={(e)=> this.gotoMap(e)}
                 style={{width:'50%',margin:'auto'}}>
+                <APPLOGO/>
                           
                         {/* SELECT BEVERAGES CHECKBOX */}
                           <div className="">

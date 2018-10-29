@@ -28,14 +28,8 @@ class App extends Component {
     return (
       
       <div className="App">
-      <h1>HELLLO REACT</h1>
-         
-    
-          
-          
-            
-
-<div>
+     
+      <div>
            <ScreensRoute/>
         </div>
       </div>

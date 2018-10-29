@@ -2,6 +2,8 @@ import React from 'react';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import firebase from '../../config/firebase'
+import APPLOGO from '../../Components/AppLogo/AppLogo'
 
 // JSS
 const styles = theme => ({
@@ -31,6 +33,18 @@ class FormOne extends React.Component {
         }
     };
 
+    componentDidMount(){
+        const user = firebase.auth().currentUser;
+        if(user){
+
+        
+        }
+        else{
+            
+            this.props.history.push('/',{})
+        }
+    }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -46,7 +60,7 @@ class FormOne extends React.Component {
         // console.log('nickname =========>',state)
         // console.log("nickname form",this.props.history.location.state)
 
-        this.props.history.push('/Form2',{ ...state , nickname , phoneno  })
+        this.props.history.push('/Images',{ ...state , nickname , phoneno  })
         
 
        
@@ -64,12 +78,16 @@ class FormOne extends React.Component {
         } = this.props;
 
         return (
+            <div>
+                            
+            
             <ValidatorForm
                 className={classes.form}
                 ref="form"
                 onSubmit={this.handleSubmit}
                 onError={errors => console.log(errors)}
             >
+                    <APPLOGO/>
                 <TextValidator
                     label="Nick Name"
                     name="nickname"
@@ -99,6 +117,7 @@ class FormOne extends React.Component {
                     Next
                 </Button>
             </ValidatorForm>
+            </div>
         )
     }
 }

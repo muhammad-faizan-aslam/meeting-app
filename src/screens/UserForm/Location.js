@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import firebase from '../../config/firebase'
+import APPLOGO from '../../Components/AppLogo/AppLogo'
 
 
 
@@ -95,7 +96,7 @@ updateCoords({latitude,longitude}){
     return (
       
       <div className="App">
-
+            <APPLOGO/>
            { coords && <MyMapComponent
 
             coords={coords}
@@ -112,7 +113,7 @@ updateCoords({latitude,longitude}){
               
               <button type="button"
               onClick={()=>{this.gotoDashboard()}}
-              class="btn btn-large btn-block btn-success">NEXT</button>
+              class="btn btn-large btn-block btn-primary">NEXT</button>
               
           </div>
       </div>

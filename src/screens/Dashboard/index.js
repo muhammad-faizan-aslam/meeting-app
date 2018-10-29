@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../../config/firebase'
+import PrimarySearchAppBar from '../../Components/DashboardHeader/DashboardHeader'
+
 
 class Dashboard extends Component {
     constructor(props) {
@@ -32,22 +34,32 @@ class Dashboard extends Component {
 
 
     componentDidMount() {
-       
-        const { state } = this.props.history.location ;
+        const user = firebase.auth().currentUser;
+        // if(user){
+           
+        //     const { state } = this.props.history.location ;
       
-        console.log("dashboard props", state )
-
-        this.setState({
-            myData : state || '' ,
-            isMeeting : state.isMeeting
-        })
-
+        //     console.log("dashboard props", state )
+    
+        //     this.setState({
+        //         myData : state || '' ,
+        //         isMeeting : state.isMeeting
+        //     })
+        // }
+        // else{
+            
+        //     this.props.history.push('/',{})
+        // }
+        
     }
     
     render() {
         const { myData , isMeeting} = this.state;
         return (
             <div>
+                <div>
+                    <PrimarySearchAppBar/>
+                </div>
                 <h1>Dashboard</h1>
                 <h4>{ myData && myData.displayName}</h4>
 
@@ -68,5 +80,6 @@ class Dashboard extends Component {
         );
     }
 }
+
 
 export default Dashboard;
