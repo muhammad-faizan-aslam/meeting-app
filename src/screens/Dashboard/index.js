@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../../config/firebase'
-import PrimarySearchAppBar from '../../Components/DashboardHeader/DashboardHeader'
-
+// import PrimarySearchAppBar from '../../Components/DashboardHeader/AppbarHeader'
+import { withRouter } from 'react-router-dom';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class Dashboard extends Component {
     signOUT(){
         alert('work')
         console.log('props dashboard',this.props)
-        console.log('props dashboard',this.props.history)
+        // console.log('props dashboard',this.props.history)
         firebase.auth().signOut().then(()=> {
 
             this.props.history.replace('/',{})
@@ -38,20 +38,20 @@ class Dashboard extends Component {
     componentDidMount() {
         const user = firebase.auth().currentUser ;
       
-        // const { state } = this.props.history.location ;
+        const { state } = this.props.history.location ;
       
-        //     console.log("dashboard props", state )
+            console.log("dashboard props", state )
     
-        //     this.setState({
-        //         myData : state || '' ,
-        //         isMeeting : state.isMeeting
-        //     })
-        if(user ){
+            this.setState({
+                myData : state || '' ,
+                isMeeting : state.isMeeting
+            })
+        if(user){
            
             const { state } = this.props.history.location ;
       
             console.log("dashboard props", state )
-            localStorage.setItem('isUser',JSON.stringify(state))
+            // localStorage.setItem('isUser',JSON.stringify(state))
     
             this.setState({
                 myData : state || ''  ,
@@ -71,7 +71,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <div>
-                    <PrimarySearchAppBar myData={myData} signOUT={this.signOUT} />
+                    {/* <PrimarySearchAppBar myData={myData} signOUT={this.signOUT} /> */}
                 </div>
                 <h1>Dashboard</h1>
                 <h4>{ myData && myData.displayName}</h4>
@@ -95,4 +95,4 @@ class Dashboard extends Component {
 }
 
 
-export default Dashboard;
+export default withRouter(Dashboard);

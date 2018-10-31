@@ -19,6 +19,7 @@ import swal from 'sweetalert';
 // import FbLogin from '../UserForm/FbLogin';
 import APPLOGO from '../../Components/AppLogo/AppLogo'
 
+
 const styles = theme => ({
     layout: {
       width: 'auto',
@@ -59,7 +60,7 @@ function loginEmail(){
 
 
 
-function loginFb(history){
+function loginFb(history, checkUserLogin,checkLoginProcess){
   const provider = new firebase.auth.FacebookAuthProvider();
   firebase.auth().signInWithPopup(provider)
   .then((result)=> {
@@ -75,7 +76,7 @@ function loginFb(history){
 
                const userData = res.val()
   
-          // console.log('firebase user',res.val())
+          console.log('firebase user',res.val())
           // console.log("key user",res.key)
           // console.log("uid user",user.uid)
 
@@ -83,12 +84,16 @@ function loginFb(history){
                   history.replace('/dashboard',
                     res.val()
                   )
+
+                  checkUserLogin()
           }  else {
              history.replace('/NameAndPhoneno',{
                   displayName: user.displayName,
                   userId : user.uid ,
                   email : user.email 
               })
+              checkUserLogin()
+              // checkLoginProcess()
           }
           
       })
@@ -112,11 +117,12 @@ function loginFb(history){
 
 
  const SignIn = (props) => {
-    const { classes , history } = props;
-    const user = firebase.auth().currentUser ;
-   if(user){
-     history.push('/dasboard')
-   }
+    const { classes , history , checkUserLogin , checkLoginProcess } = props;
+    console.log('login props',props)
+  //   const user = firebase.auth().currentUser ;
+  //  if(user){
+  //    history.push('/dasboard')
+  //  }
   
     return (
       <div>
@@ -127,9 +133,9 @@ function loginFb(history){
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            {/* <Avatar className={classes.avatar}>
               <LockIcon />
-            </Avatar>
+            </Avatar> */}
             <APPLOGO/>
             {/* <Typography component="h1" variant="h5">
               Sign in
@@ -168,7 +174,7 @@ function loginFb(history){
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={()=>{loginFb(history)}}
+                onClick={()=>{loginFb(history,checkUserLogin, checkLoginProcess)}}
 
               >
                 Login With Facebook

@@ -3,21 +3,18 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LOGO from './MEETUPLOGO.svg'
 import firebase from '../../config/firebase'
+import FbLogin from '../../screens/Loginfb'
 
 
 
@@ -119,25 +116,15 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
-  logout(){
-    this.props.signOUT()
-    console.log('props header dashboard',this.props.history)
-    firebase.auth().signOut().then(()=> {
-
-      this.props.history.replace('/',{})
-      // Sign-out successful.
-    }).catch(function(error) {
-      // An error happened.
-      console.log('error',error)
-    });
-  }
+ 
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const { signOut } = this.props
+    
+    const { isUser , checkUserLogin , logOut , loginProcess , checkLoginProcess} = this.props.AppBar ;
     console.log('app bar props',this.props)
 
     const renderMenu = (
@@ -150,7 +137,7 @@ class PrimarySearchAppBar extends React.Component {
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-        <MenuItem onClick={()=>this.logout() }>logOUT</MenuItem>
+        <MenuItem onClick={()=>logOut() }>logOUT</MenuItem>
       </Menu>
     );
 
@@ -191,15 +178,15 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" >
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             
             <img src={LOGO}  alt="Image" width='100'/>
             
          
 
-            <div className={classes.search}>
+            {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -210,9 +197,23 @@ class PrimarySearchAppBar extends React.Component {
                   input: classes.inputInput,
                 }}
               />
-            </div>
+            </div> */}
+            
+           
+          
+           
             <div className={classes.grow} />
+            {
+               
+
+               isUser
+
+                &&
+
+            <div>
             <div className={classes.sectionDesktop}>
+          
+              
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <MailIcon />
@@ -231,16 +232,28 @@ class PrimarySearchAppBar extends React.Component {
               >
                 <AccountCircle />
               </IconButton>
+           
             </div>
+         
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
                 <MoreIcon />
               </IconButton>
             </div>
+            </div>
+
+}
+           
+           
           </Toolbar>
         </AppBar>
         {renderMenu}
         {renderMobileMenu}
+
+        {
+          !isUser  &&  <FbLogin  checkUserLogin={checkUserLogin}  checkLoginProcess={checkLoginProcess} />
+        }
+       
       </div>
     );
   }
