@@ -17,10 +17,10 @@ const styles = {
     },
 };
 
-class MuiCard extends React.Component {
+class InnerCard extends React.Component {
 
     render() {
-        const { recommendedUser } = this.props.MuiCard;
+        const { recommendedUser } = this.props.InnerCard;
         const {
             classes
         } = this.props;
@@ -72,4 +72,4 @@ class MuiCard extends React.Component {
     }
 }
 
-export default withStyles(styles)(MuiCard);
+export default withStyles(styles)(InnerCard);

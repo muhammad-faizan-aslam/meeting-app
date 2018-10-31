@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import GeoFire from 'geofire';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import MuiCard from './MuiCard';
+import InnerCard from './InnerCard';
 
 //Import Constants
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET, VERSION } from '../../../../constants/fourSquare';
@@ -251,7 +251,7 @@ class SwipeableCard extends React.Component {
                                     onSwipeLeft={this.rejectUser}
                                     onSwipeRight={() => this.confirm(recommendedUser.uid)}
                                 >
-                                    <MuiCard MuiCard={{ recommendedUser }} />
+                                    <InnerCard InnerCard={{ recommendedUser }} />
                                 </CardForSwipe>
                             )
                         }
