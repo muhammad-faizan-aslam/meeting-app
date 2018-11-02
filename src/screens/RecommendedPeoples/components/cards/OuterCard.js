@@ -60,9 +60,10 @@ class SwipeableCard extends React.Component {
 
                 firebase.database().ref(`Users`)
                     .once('value', restUsers => {
+                        console.log('restUsers=====>',restUsers.val())
                         restUsers.forEach(user => {
                             const userObj = user.val();
-                            console.log('userObj=====>',userObj)
+                           
                             const userDrinks = userObj.beverages;
                             const userTimes = userObj.timeduration;
                             const userLat = userObj.latitude;
@@ -70,28 +71,34 @@ class SwipeableCard extends React.Component {
 
                             //If mine response
                             if (me.key === user.key)
-                                return;
+                            return;
+                            console.log('me.key === user.key',me.key +'=========='+ user.key)
 
-                            //Drinks Check
+                            // //Drinks Check
                             if (myDrinks.some(drink => userDrinks.includes(drink))) {
+                                console.log('drink => userDrinks.includes(drink)')
                                 //Duration Check
-                                if (myTimes.some(time => userTimes <= time)) {
-                                    return;
+                                if (myTimes.some(time => userTimes.includes(time))) {
+                                    console.log('(myTimes.some(time => userTimes <= time)')
+                                    // return;
                                 }
-                                //Distance Check <= 5KM
-                                if (GeoFire.distance([myLat, myLng], [userLat, userLng]) > 5)
-                                    return;
+                            //     // Distance Check <= 5KM
+                                if (GeoFire.distance([myLat, myLng], [userLat, userLng]) <= 5)
+                                console.log('GeoFire.distance([myLat, myLng], [userLat, userLng]) > 5')
+                                // return;
 
                                 const {
                                     recommendedUsers
                                 } = this.state;
 
                                 recommendedUsers.push({ ...user.val(), uid: user.key });
-
+                                console.log('recommendedUsers',recommendedUsers)
                                 this.setState({
                                     recommendedUsers
                                 })
+                                
                             }
+                        
                         });
                     })
                     .then(() => {
@@ -99,6 +106,7 @@ class SwipeableCard extends React.Component {
                             myLat,
                             myLng
                         })
+                        console.log('then======>')
                     });
             });
     }
@@ -256,7 +264,7 @@ class SwipeableCard extends React.Component {
                             )
                         }
                     </Cards>
-                }
+                } 
             </div >
         );
     };
