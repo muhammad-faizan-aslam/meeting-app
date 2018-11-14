@@ -16,6 +16,7 @@
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",
     "react-material-ui-form-validator": "^2.0.2",
+    "react-redux": "^5.1.0",
     "react-responsive-carousel": "^3.1.43",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
@@ -23,6 +24,7 @@
     "react-swipe-card": "^0.1.4",
     "react-swipe-deck": "^0.1.17",
     "react-swipeable-views": "^0.13.0",
+    "redux": "^4.0.1",
     "sweetalert": "^2.1.0"
   },
   "scripts": {

@@ -69,7 +69,7 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
       // The signed-in user info.
      let user = result.user;
           // console.log('user',user)
-     
+     localStorage.setItem('userID',user.uid)
       let db = firebase.database()
       db.ref(`Users/${user.uid}`)
       .once("value",res=>{
@@ -123,12 +123,14 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
   //  if(user){
   //    history.push('/dasboard')
   //  }
+  //  let isUser = localStorage.getItem('isUser')
   
     return (
+
+      
       <div>
-          
-     
-     
+      
+        
       <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
@@ -183,6 +185,9 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
           </Paper>
         </main>
       </React.Fragment>
+    
+     
+      
       </div>
     );
   }

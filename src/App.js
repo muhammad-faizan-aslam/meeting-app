@@ -23,12 +23,23 @@ class App extends Component {
       
     }
   }
+
+  componentDidMount(){
+    const userID = localStorage.getItem('userID')
+    if(userID){
+      this.setState({
+        isUser:true,
+       
+      })
+    }
+  }
   
   checkUserLogin = ()=>{
     this.setState({
       isUser:true,
      
     })
+    localStorage.setItem('isUser',true)
   }
 
   checkLoginProcess = ()=>{
@@ -46,6 +57,8 @@ class App extends Component {
         this.setState({
           isUser:false
         })
+        localStorage.setItem('isUser',false)
+        localStorage.removeItem('userID')
         this.props.history.replace('/')
       }
     )

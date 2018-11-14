@@ -47,8 +47,8 @@ class SwipeableCard extends React.Component {
     }
 
     componentDidMount() {
-        const myUId = firebase.auth().currentUser && firebase.auth().currentUser.uid;
-        
+        const myUId = firebase.auth().currentUser && firebase.auth().currentUser.uid || localStorage.getItem('userID');
+      
         firebase.database().ref(`Users/${myUId}`)
             .once('value', me => {
                 const myObj = me.val();
@@ -96,7 +96,8 @@ class SwipeableCard extends React.Component {
                                 this.setState({
                                     recommendedUsers
                                 })
-                                
+
+                               
                             }
                         
                         });
@@ -119,7 +120,8 @@ class SwipeableCard extends React.Component {
     }
 
     rejectUser = () => {
-
+        
+ 
     }
 
     closeConfirmDialog = (bool) => {
@@ -251,7 +253,10 @@ class SwipeableCard extends React.Component {
                 <SendRequestSnackbar SendRequestSnackbar={{isSnackbar}} />
                 {
                     recommendedUsers.length !== 0 &&
-                    <Cards size={[500, 500]} cardSize={[300, 300]} onEnd={this.rejectUser} className='master-root'>
+                    <div style={{margin:'auto',width:'300px'}}>
+                    <Cards size={[300, 430]}
+                        cardSize={[300, 400]} 
+                        onEnd={this.rejectUser} className='master-root'>
                         {
                             recommendedUsers.map(recommendedUser =>
                                 <CardForSwipe
@@ -259,11 +264,16 @@ class SwipeableCard extends React.Component {
                                     onSwipeLeft={this.rejectUser}
                                     onSwipeRight={() => this.confirm(recommendedUser.uid)}
                                 >
-                                    <InnerCard InnerCard={{ recommendedUser }} />
+                                    <InnerCard InnerCard={{ recommendedUser }} 
+                                    
+                                    rejectUser={this.rejectUser}
+
+                                    />
                                 </CardForSwipe>
                             )
                         }
                     </Cards>
+                    </div>
                 } 
             </div >
         );

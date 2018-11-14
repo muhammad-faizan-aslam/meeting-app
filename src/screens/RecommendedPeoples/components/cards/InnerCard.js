@@ -15,27 +15,34 @@ const styles = {
     textCenter: {
         textAlign: 'center'
     },
+    card: {
+        maxWidth: 500,
+      },
 };
 
 class InnerCard extends React.Component {
 
     render() {
         const { recommendedUser } = this.props.InnerCard;
+        console.log('innercard props',this.props);
+        
         const {
             classes
         } = this.props;
 
         return (
-            <Card>
+            <Card className={classes.card}>
                 <Carousel
-                    autoPlay={true}
+                    // autoPlay={true}
                     infiniteLoop={true}
                     emulateTouch={true}
                     swipeable={true}
-                    showArrows={false}
+                    showArrows={true}
                     showThumbs={false}>
                     {
-                        recommendedUser.imagesUrlArr.map(path => <img src={path} height='100%' alt="userImg" />)
+                        recommendedUser.imagesUrlArr.map(path => <img src={path} className='img-responsive'
+                        style={{width:'300px',height:'300px'}}
+                        alt="userImg" />)
                     }
                 </Carousel>
                 <Grid container
@@ -44,19 +51,19 @@ class InnerCard extends React.Component {
                     alignItems="center">
 
                     <Grid item xs={2}>
-                        <IconButton aria-label="Add to favorites">
-                            <CloseIcon />
+                        <IconButton aria-label="Add to favorites"  onClick={this.props.rejectUser} >
+                            <CloseIcon  />
                         </IconButton>
                     </Grid>
                     <Grid item xs={8}>
                         <CardContent>
                             <Grid direction="row" justify="center" alignItems="center">
-                                <Typography variant="caption" className={classes.textCenter}>
+                                <Typography variant="subtitle1" className={classes.textCenter}>
                                     <b>{recommendedUser.displayName}</b>
                                 </Typography>
                             </Grid>
                             <Grid direction="row" justify="center" alignItems="center">
-                                <Typography variant="caption" className={classes.textCenter}>{recommendedUser.nickName}</Typography>
+                                <Typography variant="subtitle2" color='secondary' className={classes.textCenter}>{recommendedUser.nickname}</Typography>
                             </Grid>
                         </CardContent>
                     </Grid>

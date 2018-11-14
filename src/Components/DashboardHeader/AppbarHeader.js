@@ -13,7 +13,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LOGO from './MEETUPLOGO.svg'
-import firebase from '../../config/firebase'
+// import firebase from '../../config/firebase'
 import FbLogin from '../../screens/Loginfb'
 
 
@@ -126,6 +126,9 @@ class PrimarySearchAppBar extends React.Component {
     
     const { isUser , checkUserLogin , logOut , loginProcess , checkLoginProcess} = this.props.AppBar ;
     console.log('app bar props',this.props)
+
+    // const isUser =  localStorage.getItem('isUser');
+    // console.log('appbar header',isUser)
 
     const renderMenu = (
       <Menu

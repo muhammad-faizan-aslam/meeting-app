@@ -37,25 +37,27 @@ class Dashboard extends Component {
 
     componentDidMount() {
         const user = firebase.auth().currentUser ;
+        const userID = localStorage.getItem('userID')
       
         const { state } = this.props.history.location ;
+       
       
-            console.log("dashboard props", state )
+        // console.log("dashboard props", state )
     
             this.setState({
-                myData : state || '' ,
-                isMeeting : state.isMeeting
+                myData : state || ''  ,
+                isMeeting : state.isMeeting || '' ,
             })
-        if(user){
+        if(user || userID ){
            
             const { state } = this.props.history.location ;
       
             console.log("dashboard props", state )
-            // localStorage.setItem('isUser',JSON.stringify(state))
+           
     
             this.setState({
-                myData : state || ''  ,
-                isMeeting : state.isMeeting || '',
+                myData : state || '' ,
+                isMeeting : state.isMeeting || '' ,
             })
             // this.props.history.push('/dashboard')
         }
@@ -71,7 +73,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <div>
-                    {/* <PrimarySearchAppBar myData={myData} signOUT={this.signOUT} /> */}
+            
                 </div>
                 <h1>Dashboard</h1>
                 <h4>{ myData && myData.displayName}</h4>
@@ -84,10 +86,7 @@ class Dashboard extends Component {
                 }
                 <br/>
                 <br/>
-                {/* <button type="button" 
-                
-                onClick={()=> this.signOut() }
-                className="btn btn-large btn-primary">LOGOUT</button> */}
+               
                 
             </div>
         );
