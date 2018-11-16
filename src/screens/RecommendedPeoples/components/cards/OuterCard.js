@@ -123,7 +123,7 @@ class SwipeableCard extends React.Component {
             swappedUserId: swappedUser.uid,
             swappedUserNickName: swappedUser.nickname,
             swappedUserDisplayName: swappedUser.displayName,
-            // swappedUserDisplayPic: swappedUser.displayPic
+            swappedUserDisplayPic: swappedUser.profilePic
         });
 
         console.log('confirm',swappedUser)
@@ -287,11 +287,9 @@ class SwipeableCard extends React.Component {
                         swappedUserDisplayName,
                         swappedUserDisplayPic,
                         isDateAndTimeDialog,
-                        isSnackbar,
                         closeDateAndTimeDialog: this.closeDateAndTimeDialog
                     }}
                 />
-                {/* <SendRequestSnackbar SendRequestSnackbar={{isSnackbar}} /> */}
                 {
                     recommendedUsers.length !== 0 &&
                     <div style={{margin:'auto',width:'300px'}}>
@@ -303,13 +301,15 @@ class SwipeableCard extends React.Component {
                         {
                             recommendedUsers.map(recommendedUser =>
                                 <CardForSwipe
-                                    key={recommendedUser.nickname}
+                                    key={recommendedUser.userId}
                                     onSwipeLeft={this.rejectUser}
                                     onSwipeRight={() => this.confirm(recommendedUser)}
                                 >
-                                    <InnerCard InnerCard={{ recommendedUser,
+                                    <InnerCard  key={recommendedUser.userId}  InnerCard={{ recommendedUser,
                                         onClickCross: this.onClickCross,
-                                        onClickCheck: () => this.onClickCheck(recommendedUser) }} 
+                                        onClickCheck: () => this.onClickCheck(recommendedUser) ,
+                                     key :recommendedUser.userId
+                                    }} 
                                     
 
                                     />

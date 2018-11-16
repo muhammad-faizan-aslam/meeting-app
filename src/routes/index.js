@@ -32,9 +32,6 @@ export default (props)=> {
 
        
                 <Route render={(props)=> <HeaderAppBar {...props} AppBar={{ isUser, checkUserLogin , logOut ,loginProcess , checkLoginProcess }}  />} />
-                {/* <Route  path='/' component={ LoginFb } exact /> */}
-                 {/* <Route path='/fb' component={ FbLogin }  /> */}
-                {/* <Route render={(props)=> < FbLogin  />} /> */}
                 <Route  path='/NameAndPhoneno' component={ NameAndPhoneno }  />
                 <Route  path='/Images' component={ Images }  />
                 <Route  path='/BeveragesAndTime' component={ BeveragesAndTime }  />

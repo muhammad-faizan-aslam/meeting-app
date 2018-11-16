@@ -13,6 +13,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LOGO from './MEETUPLOGO.svg'
+import {Link} from 'react-router-dom'
 // import firebase from '../../config/firebase'
 import FbLogin from '../../screens/Loginfb'
 
@@ -184,8 +185,10 @@ class PrimarySearchAppBar extends React.Component {
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton> */}
-            
+            <Link to='/dashboard'>
             <img src={LOGO}  alt="Image" width='100'/>
+            </Link>
+           
             
          
 

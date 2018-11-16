@@ -57,7 +57,9 @@ class DateAndTimeDialog extends React.Component {
                     swappedUserNickName,
                     swappedUserDisplayName,
                     swappedUserId,
-                    // swappedUserDisplayPic
+                    swappedUserDisplayPic,
+                    requestDate: new Date().toLocaleDateString(),
+                    requestTime: new Date().toLocaleTimeString()
                 });
                 console.log('meetings',meetings);
 
@@ -80,7 +82,9 @@ class DateAndTimeDialog extends React.Component {
                                     senderDisplayName:sender.displayName,
                                     sendernickname:sender.nickname,
                                     senderId:sender.userId,
-                                    // swappedUserDisplayPic
+                                    senderPic:sender.profilePic,
+                                    senderRequestDate: new Date().toLocaleDateString(),
+                                    senderRequestTime: new Date().toLocaleTimeString()
                                 });
 
                                 firebase.database().ref(`Users/${swappedUserId}`)

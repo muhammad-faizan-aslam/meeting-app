@@ -27,6 +27,7 @@ class InnerCard extends React.Component {
             onClickCheck,
             onClickCross,
             recommendedUser,
+            key
         } = this.props.InnerCard;
 
         console.log('innercard props',this.props);
@@ -35,8 +36,11 @@ class InnerCard extends React.Component {
             classes
         } = this.props;
 
+        console.log('key inner card',key)
+
         return (
-            <Card className={classes.card}>
+            <div  key={key} > 
+            <Card className={classes.card} key={key}>
                 <Carousel
                     // autoPlay={true}
                     infiniteLoop={true}
@@ -45,41 +49,48 @@ class InnerCard extends React.Component {
                     showArrows={true}
                     showThumbs={false}>
                     {
-                        recommendedUser.imagesUrlArr.map(path => <img src={path} className='img-responsive'
+                        recommendedUser.imagesUrlArr.map((path,index) => <img src={path} className='img-responsive'
                         style={{width:'300px',height:'300px'}}
-                        alt="userImg" />)
+                        alt="userImg" key={index} />)
                     }
                 </Carousel>
-                <Grid container
+                    <div>
+                <Grid
+                    container
                     direction="row"
                     justify="center"
                     alignItems="center">
 
-                    <Grid item xs={2}>
+                    <Grid  item xs={2}>
                         <IconButton aria-label="Add to favorites"   onClick={onClickCross}   >
                             <CloseIcon  />
                         </IconButton>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid  item xs={8}>
                         <CardContent>
-                            <Grid direction="row" justify="center" alignItems="center">
+                            <Grid >
                                 <Typography variant="subtitle1" className={classes.textCenter}>
-                                    <b>{recommendedUser.displayName}</b>
+                              
+                                <b>{recommendedUser.displayName}</b>
+                               
+                                   
                                 </Typography>
                             </Grid>
-                            <Grid direction="row" justify="center" alignItems="center">
+                            <Grid >
                                 <Typography variant="subtitle2" color='secondary' className={classes.textCenter}>{recommendedUser.nickname}</Typography>
                             </Grid>
                         </CardContent>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid  item xs={2}>
                         <IconButton aria-label="Share"   onClick={onClickCheck} >
                             <CheckIcon />
                         </IconButton>
                     </Grid>
 
                 </Grid>
+                </div>
             </Card>
+            </div>
         );
     }
 }
