@@ -32,8 +32,8 @@ componentDidMount() {
  
 }
 
-gotoDashboard(){
-
+gotoDashboard(e){
+          e.preventDefault()
           const { coords } = this.state ;
           const { state }= this.props.history.location ;
 
@@ -111,7 +111,7 @@ updateCoords({latitude,longitude}){
           <div>
               
               <button type="button"
-              onClick={()=>{this.gotoDashboard()}}
+              onClick={()=>{this.gotoDashboard(e)}}
               class="btn btn-large btn-block btn-success">NEXT</button>
               
           </div>

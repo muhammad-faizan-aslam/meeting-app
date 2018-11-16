@@ -23,7 +23,12 @@ const styles = {
 class InnerCard extends React.Component {
 
     render() {
-        const { recommendedUser } = this.props.InnerCard;
+        const {
+            onClickCheck,
+            onClickCross,
+            recommendedUser,
+        } = this.props.InnerCard;
+
         console.log('innercard props',this.props);
         
         const {
@@ -51,7 +56,7 @@ class InnerCard extends React.Component {
                     alignItems="center">
 
                     <Grid item xs={2}>
-                        <IconButton aria-label="Add to favorites"  onClick={this.props.rejectUser} >
+                        <IconButton aria-label="Add to favorites"   onClick={onClickCross}   >
                             <CloseIcon  />
                         </IconButton>
                     </Grid>
@@ -68,7 +73,7 @@ class InnerCard extends React.Component {
                         </CardContent>
                     </Grid>
                     <Grid item xs={2}>
-                        <IconButton aria-label="Share">
+                        <IconButton aria-label="Share"   onClick={onClickCheck} >
                             <CheckIcon />
                         </IconButton>
                     </Grid>

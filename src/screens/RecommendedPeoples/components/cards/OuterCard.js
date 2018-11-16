@@ -11,9 +11,9 @@ import InnerCard from './InnerCard';
 import { BASE_URL, CLIENT_ID, CLIENT_SECRET, VERSION } from '../../../../constants/fourSquare';
 
 //Import Dialogs
-import ConfirmationDialog from '../dialogs/ConfirmationDialog/ConfirmationDialog';
-import VenueDetailsDialog from '../dialogs/VenueDetailsDialog/VenueDetailsDialog';
-import DateAndTimeDialog from '../dialogs/DateAndTimeDialog/DateAndTimeDialog';
+import ConfirmationDialog from '../dialogs/ConfirmationDialog';
+import VenueDetailsDialog from '../dialogs/VenueDetailsDialog';
+import DateAndTimeDialog from '../dialogs/DateAndTimeDialog';
 
 //Import Snackbar
 import SendRequestSnackbar from '../snackbars/SendRequestSnackbar.js';
@@ -40,6 +40,9 @@ class SwipeableCard extends React.Component {
         recommendedPlaces: [],
         selectedPlace: [],
         swappedUserId: '',
+        swappedUserNickName: '',
+        swappedUserDisplayName: '',
+        swappedUserDisplayPic: '',
         isConfirmDialog: false,
         isVenueDetailsDialog: false,
         isDateAndTimeDialog: false,
@@ -97,6 +100,8 @@ class SwipeableCard extends React.Component {
                                     recommendedUsers
                                 })
 
+                                console.log('recommendedUsers',recommendedUsers)
+
                                
                             }
                         
@@ -112,16 +117,20 @@ class SwipeableCard extends React.Component {
             });
     }
 
-    confirm = (uid) => {
+    confirm = (swappedUser) => {
         this.setState({
             isConfirmDialog: true,
-            swappedUserId: uid
-        })
-    }
+            swappedUserId: swappedUser.uid,
+            swappedUserNickName: swappedUser.nickname,
+            swappedUserDisplayName: swappedUser.displayName,
+            // swappedUserDisplayPic: swappedUser.displayPic
+        });
+
+        console.log('confirm',swappedUser)
+    };
 
     rejectUser = () => {
-        
- 
+
     }
 
     closeConfirmDialog = (bool) => {
@@ -204,12 +213,39 @@ class SwipeableCard extends React.Component {
         })
     }
 
+
+    onClickCheck = (swappedUser) => {
+        const {
+            removeCard
+        } = this.swipeCard;
+
+        const {
+            confirm
+        } = this;
+
+        removeCard();
+        confirm(swappedUser);
+    };
+
+    onClickCross = () => {
+        const {
+            removeCard
+        } = this.swipeCard;
+
+        removeCard();
+    };
+
     render() {
         const {
+            myLat,
+            myLng,
             recommendedUsers,
             recommendedPlaces,
             selectedPlace,
             swappedUserId,
+            swappedUserNickName,
+            swappedUserDisplayName,
+            swappedUserDisplayPic,
             isConfirmDialog,
             isVenueDetailsDialog,
             isDateAndTimeDialog,
@@ -219,7 +255,7 @@ class SwipeableCard extends React.Component {
         const {
             classes
         } = this.props;
-
+        
         return (
             <div>
                 <ConfirmationDialog
@@ -231,6 +267,8 @@ class SwipeableCard extends React.Component {
                 />
                 <VenueDetailsDialog
                     VenueDetailsDialog={{
+                        myLat,
+                        myLng,
                         classes,
                         isVenueDetailsDialog,
                         recommendedPlaces,
@@ -245,28 +283,34 @@ class SwipeableCard extends React.Component {
                         classes,
                         selectedPlace,
                         swappedUserId,
+                        swappedUserNickName,
+                        swappedUserDisplayName,
+                        swappedUserDisplayPic,
                         isDateAndTimeDialog,
                         isSnackbar,
                         closeDateAndTimeDialog: this.closeDateAndTimeDialog
                     }}
                 />
-                <SendRequestSnackbar SendRequestSnackbar={{isSnackbar}} />
+                {/* <SendRequestSnackbar SendRequestSnackbar={{isSnackbar}} /> */}
                 {
                     recommendedUsers.length !== 0 &&
                     <div style={{margin:'auto',width:'300px'}}>
                     <Cards size={[300, 430]}
                         cardSize={[300, 400]} 
-                        onEnd={this.rejectUser} className='master-root'>
+                        onEnd={this.rejectUser} 
+                        ref={SwipeCards => this.swipeCard = SwipeCards}
+                        className='master-root'>
                         {
                             recommendedUsers.map(recommendedUser =>
                                 <CardForSwipe
-                                    key={recommendedUser.nickName}
+                                    key={recommendedUser.nickname}
                                     onSwipeLeft={this.rejectUser}
-                                    onSwipeRight={() => this.confirm(recommendedUser.uid)}
+                                    onSwipeRight={() => this.confirm(recommendedUser)}
                                 >
-                                    <InnerCard InnerCard={{ recommendedUser }} 
+                                    <InnerCard InnerCard={{ recommendedUser,
+                                        onClickCross: this.onClickCross,
+                                        onClickCheck: () => this.onClickCheck(recommendedUser) }} 
                                     
-                                    rejectUser={this.rejectUser}
 
                                     />
                                 </CardForSwipe>

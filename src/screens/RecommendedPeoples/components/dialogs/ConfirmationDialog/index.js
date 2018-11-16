@@ -1,15 +1,11 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-
-
-
 
 class ConfirmationDialog extends React.Component {
 
@@ -40,10 +36,10 @@ class ConfirmationDialog extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button  variant="contained"  color="primary" className={classes.button} onClick={() => closeConfirmDialog(false)}>
+            <Button className={classes.button} onClick={() => closeConfirmDialog(false)}>
               No
             </Button>
-            <Button  variant="contained" color="primary" className={classes.button}  onClick={() => closeConfirmDialog(true)} autoFocus>
+            <Button className={classes.button} onClick={() => closeConfirmDialog(true)} autoFocus>
               Yes
             </Button>
           </DialogActions>

@@ -96,7 +96,7 @@ updateCoords({latitude,longitude}){
     return (
       
       <div className="App">
-            <APPLOGO/>
+            {/* <APPLOGO/> */}
            { coords && <MyMapComponent
 
             coords={coords}

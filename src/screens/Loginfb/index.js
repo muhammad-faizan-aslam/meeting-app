@@ -90,7 +90,8 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
              history.replace('/NameAndPhoneno',{
                   displayName: user.displayName,
                   userId : user.uid ,
-                  email : user.email 
+                  email : user.email ,
+                  profilePic: user.photoURL
               })
               checkUserLogin()
               // checkLoginProcess()
