@@ -20,12 +20,15 @@ class App extends Component {
     this.state = {
       isUser: false,
       loginProcess:false,
+      notifications:[]
       
     }
   }
 
   componentDidMount(){
     const userID = localStorage.getItem('userID')
+
+    
     if(userID){
       this.setState({
         isUser:true,
@@ -33,7 +36,24 @@ class App extends Component {
       })
     }
   }
-  
+  componentDidUpdate(prevProps, prevState) {
+    const userID = localStorage.getItem('userID')
+
+    if (this.state.isUser)
+      if (prevState.isUser !== this.state.isUser)
+        firebase.database().ref(`Users/${userID}`)
+          .once('value', userData => {
+            if(userData.val()){
+              const notifications = userData.val().notifications || [];
+
+              this.setState({
+                notifications
+              });
+            }
+         
+
+          });
+  };
   checkUserLogin = ()=>{
     this.setState({
       isUser:true,
@@ -69,7 +89,7 @@ class App extends Component {
 
   render() {
     
-    const { isUser , loginProcess } = this.state
+    const { isUser , loginProcess , notifications} = this.state
     
     return (
       
@@ -78,7 +98,7 @@ class App extends Component {
       <div>
            <ScreensRoute   ScreenRoutes={{isUser,checkUserLogin:this.checkUserLogin , logOut:this.logOut ,
             
-            loginProcess , checkLoginProcess:this.checkLoginProcess }}/>
+            loginProcess , checkLoginProcess:this.checkLoginProcess , notifications}}/>
         </div>
       </div>
         

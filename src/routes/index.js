@@ -9,6 +9,7 @@ import Location from '../screens/UserForm/Location'
 import HeaderAppBar from '../Components/DashboardHeader/AppbarHeader'
 // import Map   from '../screens/Map/Map'
 import Dashboard from '../screens/Dashboard'
+import Notification from '../screens/Notifications'
 import Card from '../screens/RecommendedPeoples/RecommendedPeoples'
 
 
@@ -21,7 +22,8 @@ export default (props)=> {
         checkUserLogin,
         logOut,
         loginProcess,
-        checkLoginProcess
+        checkLoginProcess,
+        notifications
         
     } = props.ScreenRoutes;
 
@@ -31,12 +33,13 @@ export default (props)=> {
          <div>
 
        
-                <Route render={(props)=> <HeaderAppBar {...props} AppBar={{ isUser, checkUserLogin , logOut ,loginProcess , checkLoginProcess }}  />} />
+                <Route render={(props)=> <HeaderAppBar {...props} AppBar={{ isUser, checkUserLogin , logOut ,loginProcess , checkLoginProcess ,notifications }}  />} />
                 <Route  path='/NameAndPhoneno' component={ NameAndPhoneno }  />
                 <Route  path='/Images' component={ Images }  />
                 <Route  path='/BeveragesAndTime' component={ BeveragesAndTime }  />
                 <Route  path='/Location' component={ Location }  />
                 <Route  path='/dashboard' component={ Dashboard }  />
+                <Route  path='/notification' render={(props)=> <Notification {...props} Notifications={{notifications}} />} />
                 <Route  path='/recommendedpeople' component={ Card }  />
 
              </div>

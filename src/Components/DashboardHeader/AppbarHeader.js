@@ -98,7 +98,9 @@ class PrimarySearchAppBar extends React.Component {
     mobileMoreAnchorEl: null,
   };
 
-  
+  gotoNotification = ()=>{
+    this.props.history.push('/notification')
+  }
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -125,7 +127,7 @@ class PrimarySearchAppBar extends React.Component {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     
-    const { isUser , checkUserLogin , logOut , loginProcess , checkLoginProcess} = this.props.AppBar ;
+    const { isUser , checkUserLogin , logOut , notifications , checkLoginProcess} = this.props.AppBar ;
     console.log('app bar props',this.props)
 
     // const isUser =  localStorage.getItem('isUser');
@@ -153,21 +155,23 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}
       >
-        <MenuItem>
+        {/* <MenuItem>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <MailIcon />
             </Badge>
           </IconButton>
           <p>Messages</p>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
+       
+        <IconButton color="inherit">
+            <Badge badgeContent={notifications.length} color="primary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
           <p>Notifications</p>
+           
         </MenuItem>
         <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton color="inherit">
@@ -225,11 +229,15 @@ class PrimarySearchAppBar extends React.Component {
                   <MailIcon />
                 </Badge>
               </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
+             
+              <IconButton color="inherit" onClick={this.gotoNotification}>
+            
+              <Badge badgeContent={notifications.length} color="secondary">
                   <NotificationsIcon />
                 </Badge>
+               
               </IconButton>
+             
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : null}
                 aria-haspopup="true"
