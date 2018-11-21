@@ -14,7 +14,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LOGO from './MEETUPLOGO.svg'
 import {Link} from 'react-router-dom'
-// import firebase from '../../config/firebase'
 import FbLogin from '../../screens/Loginfb'
 
 
@@ -90,9 +89,7 @@ const styles = theme => ({
 });
 
 class PrimarySearchAppBar extends React.Component {
-  constructor(props){
-    super(props)
-  }
+  
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
@@ -128,10 +125,9 @@ class PrimarySearchAppBar extends React.Component {
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     
     const { isUser , checkUserLogin , logOut , notifications , checkLoginProcess} = this.props.AppBar ;
-    console.log('app bar props',this.props)
 
-    // const isUser =  localStorage.getItem('isUser');
-    // console.log('appbar header',isUser)
+// console.log('app bar props',this.props)
+// console.log('appbar header',isUser)
 
     const renderMenu = (
       <Menu
@@ -155,17 +151,10 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}
       >
-        {/* <MenuItem>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem> */}
+       
         <MenuItem>
        
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={this.gotoNotification}>
             <Badge badgeContent={notifications.length} color="primary">
               <NotificationsIcon />
             </Badge>
@@ -186,30 +175,10 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" >
           <Toolbar>
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton> */}
             <Link to='/dashboard'>
-            <img src={LOGO}  alt="Image" width='100'/>
+            <img src={LOGO}  alt="logo" width='100'/>
             </Link>
-           
-            
-         
-
-            {/* <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div> */}
-            
-           
+          
           
            
             <div className={classes.grow} />

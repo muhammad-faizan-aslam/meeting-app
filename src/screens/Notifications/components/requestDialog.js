@@ -7,17 +7,16 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, DialogActions } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
 //Import Moment
 import moment from 'moment';
 
 const styles = {
     avatar: {
-        borderRadius: '50%',
-        width: '25%',
-        height: '70px',
-        float: 'left'
-    },
+        margin:'auto',
+
+      },
     margin: {
         marginTop: '10px',
         marginLeft: '35%',
@@ -39,7 +38,7 @@ const styles = {
 };
 
 class RequestDialog extends React.Component {
-
+    
     close = ()=>{
         alert('confirm')
     }
@@ -50,7 +49,8 @@ class RequestDialog extends React.Component {
             close,
             request,
             classes,
-            fullScreen
+            fullScreen,
+            requestAccept
         } = this.props;
         
         return (
@@ -62,8 +62,7 @@ class RequestDialog extends React.Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <div className={classes.margin}>
-                    <img className={classes.avatar} src={request.senderPic} className="img-responsive" alt='Avatar' /></div>
+                   <Avatar alt="pic" src={request.senderPic} className={classes.avatar} />
                     <DialogContent className={classes.center}>
                     <Typography 
                         variant='h6'
@@ -92,7 +91,7 @@ class RequestDialog extends React.Component {
                             <Button className={classes.button} onClick={() => close(false)}>
                             Cancel
                             </Button>
-                            <Button className={classes.button} onClick={() => close()} autoFocus>
+                            <Button className={classes.button} onClick={() => requestAccept(request.senderId,request.senderMeetingIndex)} autoFocus>
                             Confirm
                             </Button>
                         </DialogActions>

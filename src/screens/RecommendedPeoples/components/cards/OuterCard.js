@@ -15,8 +15,6 @@ import ConfirmationDialog from '../dialogs/ConfirmationDialog';
 import VenueDetailsDialog from '../dialogs/VenueDetailsDialog';
 import DateAndTimeDialog from '../dialogs/DateAndTimeDialog';
 
-//Import Snackbar
-import SendRequestSnackbar from '../snackbars/SendRequestSnackbar.js';
 
 const styles = theme => ({
     button: {
@@ -50,12 +48,12 @@ class SwipeableCard extends React.Component {
     }
 
     componentDidMount() {
-        const myUId = firebase.auth().currentUser && firebase.auth().currentUser.uid || localStorage.getItem('userID');
+        const myUId = firebase.auth().currentUser ? firebase.auth().currentUser.uid : localStorage.getItem('userID');
       
         firebase.database().ref(`Users/${myUId}`)
             .once('value', me => {
                 const myObj = me.val();
-                console.log('myobj=====>',myObj)
+                // console.log('myobj=====>',myObj)
                 const myDrinks = myObj.beverages;
                 const myTimes = myObj.timeduration;
                 const myLat = myObj.latitude;
@@ -63,7 +61,7 @@ class SwipeableCard extends React.Component {
 
                 firebase.database().ref(`Users`)
                     .once('value', restUsers => {
-                        console.log('restUsers=====>',restUsers.val())
+                        // console.log('restUsers=====>',restUsers.val())
                         restUsers.forEach(user => {
                             const userObj = user.val();
                            
@@ -75,32 +73,39 @@ class SwipeableCard extends React.Component {
                             //If mine response
                             if (me.key === user.key)
                             return;
-                            console.log('me.key === user.key',me.key +'=========='+ user.key)
+                            // console.log('me.key === user.key',me.key +'=========='+ user.key)
 
                             // //Drinks Check
                             if (myDrinks.some(drink => userDrinks.includes(drink))) {
-                                console.log('drink => userDrinks.includes(drink)')
+                                // console.log('drink => userDrinks.includes(drink)')
                                 //Duration Check
                                 if (myTimes.some(time => userTimes.includes(time))) {
-                                    console.log('(myTimes.some(time => userTimes <= time)')
+                                    // console.log('(myTimes.some(time => userTimes <= time)')
                                     // return;
                                 }
                             //     // Distance Check <= 5KM
                                 if (GeoFire.distance([myLat, myLng], [userLat, userLng]) <= 5)
-                                console.log('GeoFire.distance([myLat, myLng], [userLat, userLng]) > 5')
-                                // return;
+                                {
+                                    // console.log('GeoFire.distance([myLat, myLng], [userLat, userLng]) > 5')
+                                    const {
+                                        recommendedUsers
+                                    } = this.state;
 
-                                const {
-                                    recommendedUsers
-                                } = this.state;
+                                    recommendedUsers.push({ ...user.val(), uid: user.key });
+                                    // console.log('recommendedUsers',recommendedUsers)
+                                    this.setState({
+                                        recommendedUsers
+                                    })
+    
+                                    // console.log('recommendedUsers',recommendedUsers)
 
-                                recommendedUsers.push({ ...user.val(), uid: user.key });
-                                console.log('recommendedUsers',recommendedUsers)
-                                this.setState({
-                                    recommendedUsers
-                                })
+                                }
+                                
+                                
+                              
 
-                                console.log('recommendedUsers',recommendedUsers)
+
+                              
 
                                
                             }
@@ -112,7 +117,7 @@ class SwipeableCard extends React.Component {
                             myLat,
                             myLng
                         })
-                        console.log('then======>')
+                        // console.log('then======>')
                     });
             });
     }
@@ -126,7 +131,7 @@ class SwipeableCard extends React.Component {
             swappedUserDisplayPic: swappedUser.profilePic
         });
 
-        console.log('confirm',swappedUser)
+        // console.log('confirm',swappedUser)
     };
 
     rejectUser = () => {
@@ -249,7 +254,6 @@ class SwipeableCard extends React.Component {
             isConfirmDialog,
             isVenueDetailsDialog,
             isDateAndTimeDialog,
-            isSnackbar
         } = this.state;
 
         const {

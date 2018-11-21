@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import firebase from '../../config/firebase'
-// import PersonAdd from '@material-ui/icons/PersonAdd';
-
-// import PrimarySearchAppBar from '../../Components/DashboardHeader/AppbarHeader'
 import { withRouter } from 'react-router-dom';
 import OuterMeeting from './components/outerMeeting'
+
+import firebase from '../../config/firebase'
 
 
 class Dashboard extends Component {
@@ -29,31 +27,26 @@ class Dashboard extends Component {
     componentDidMount() {
         const user = firebase.auth().currentUser ;
         const userID = localStorage.getItem('userID')
-        // const { meetings , myData } = this.state;
-        const { state } = this.props.history.location ;
-        // myData = state ;
-      
-        console.log("dashboard props", state )
-    
-           
-
+             
+// console.log("dashboard props", state )
             
         if(user || userID ){
            
             const { state } = this.props.history.location ;
            
-            console.log('dasboard userid',userID)
+// console.log('dasboard userid',userID)
            
             firebase.database().ref(`Users/${userID}`)
         .once('value', user => {
-            console.log('dashboard meeting lists',user.val())
+
+// console.log('dashboard meeting lists',user.val())
+
             if (user.val().meetings) {
                 this.setState({
                     myData : state || user.val()  ,
-                    // isMeeting : state.isMeeting || '' ,
                 })
                 const meetingsList = user.val().meetings;
-                console.log('dashboard meeting lists',meetingsList)
+// console.log('dashboard meeting lists',meetingsList)
                 const { meetings } = this.state;
 
                     meetingsList.forEach(meeting => {
@@ -81,21 +74,19 @@ class Dashboard extends Component {
                     this.setState({
                         meetings
                     });
-
-                    console.log('dashboard meeting lists',meetings)
+// console.log('dashboard meeting lists',meetings)
                 };
 
                
             });
       
-            console.log("dashboard props", state )
+// console.log("dashboard props", state )
            
     
             this.setState({
                 myData : state || '' ,
-                // isMeeting : state.isMeeting || '' ,
             })
-            // this.props.history.push('/dashboard')
+            
         }
         else{
             
@@ -121,15 +112,10 @@ class Dashboard extends Component {
    
     
     render() {
-        const {
-            classes
-        } = this.props;
 
         const {
             meetings,
-            isLoading,
             myData , 
-            isMeeting
         } = this.state;
       
         return (
@@ -148,8 +134,7 @@ class Dashboard extends Component {
 
              
                 <OuterMeeting
-                    
-                        lists={meetings}
+                    lists={meetings}
                 />
             
                

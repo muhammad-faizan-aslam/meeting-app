@@ -30,13 +30,13 @@ class InnerCard extends React.Component {
             key
         } = this.props.InnerCard;
 
-        console.log('innercard props',this.props);
+        // console.log('innercard props',this.props);
         
         const {
             classes
         } = this.props;
 
-        console.log('key inner card',key)
+        // console.log('key inner card',key)
 
         return (
             <div  key={key} > 

@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DateAndTime from './components/DateAndTime';
+import swal from 'sweetalert2'
 
 import firebase from '../../../../../config/firebase';
 
@@ -45,7 +46,7 @@ class DateAndTimeDialog extends React.Component {
                 
                 const sender = mySnapshot.val();
                 const meetings = mySnapshot.val().meetings || [];
-                console.log('datentimedialog',mySnapshot.val());
+                // console.log('datentimedialog',mySnapshot.val());
 
               
 
@@ -61,7 +62,7 @@ class DateAndTimeDialog extends React.Component {
                     requestDate: new Date().toLocaleDateString(),
                     requestTime: new Date().toLocaleTimeString()
                 });
-                console.log('meetings',meetings);
+                // console.log('meetings',meetings);
 
                 firebase.database().ref(`Users/${localStorage.getItem('userID')}`)
                     .update({
@@ -81,6 +82,7 @@ class DateAndTimeDialog extends React.Component {
                                     ...selectedPlace,
                                     senderDisplayName:sender.displayName,
                                     sendernickname:sender.nickname,
+                                    senderMeetingIndex:notifications.length,
                                     senderId:sender.userId,
                                     senderPic:sender.profilePic,
                                     senderRequestDate: new Date().toLocaleDateString(),
@@ -92,6 +94,14 @@ class DateAndTimeDialog extends React.Component {
                                         notifications
                                     })
                                     .then(() => {
+                                        swal({
+                        
+                                            type: 'success',
+                                            title: 'MEETING REQUEST SUCCESSFULY SENT',
+                                            showConfirmButton: false,
+                                            timer: 1000
+                                          })
+                                       
                                         closeDateAndTimeDialog();
                                     })
 
@@ -132,6 +142,7 @@ class DateAndTimeDialog extends React.Component {
                             type='submit'
                             className={classes.button}
                             onClick={() => this.sendRequestForMeeting(selectedPlace)}
+                            style={{ color:"blue"}}
                         >
                             Save
                         </Button>

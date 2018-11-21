@@ -2,21 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '../../config/firebase';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-// import Button from '@material-ui/core/Button';
 import swal from 'sweetalert';
-// import FbLogin from '../UserForm/FbLogin';
 import APPLOGO from '../../Components/AppLogo/AppLogo'
 
 
@@ -75,10 +68,10 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
       .once("value",res=>{
 
                const userData = res.val()
-  
-          console.log('firebase user',res.val())
-          // console.log("key user",res.key)
-          // console.log("uid user",user.uid)
+               
+// console.log('firebase user',res.val())
+// console.log("key user",res.key)
+// console.log("uid user",user.uid)
 
          if(userData){
                   history.replace('/dashboard',
@@ -119,12 +112,7 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
 
  const SignIn = (props) => {
     const { classes , history , checkUserLogin , checkLoginProcess } = props;
-    console.log('login props',props)
-  //   const user = firebase.auth().currentUser ;
-  //  if(user){
-  //    history.push('/dasboard')
-  //  }
-  //  let isUser = localStorage.getItem('isUser')
+// console.log('login props',props)
   
     return (
 
@@ -136,13 +124,9 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            {/* <Avatar className={classes.avatar}>
-              <LockIcon />
-            </Avatar> */}
+            
             <APPLOGO/>
-            {/* <Typography component="h1" variant="h5">
-              Sign in
-            </Typography> */}
+
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
@@ -202,18 +186,3 @@ function loginFb(history, checkUserLogin,checkLoginProcess){
 
   export default withStyles(styles)(withRouter(SignIn));
   
-// class App extends Component {
-//     render() {
-//         return (
-//             <div>
-//                 <h1>HELOO</h1>
-//                 <Button variant="contained" color="primary">
-//       Hello World
-//     </Button>
- 
-//             </div>
-//         );
-//     }
-// }
-
-// export default App;

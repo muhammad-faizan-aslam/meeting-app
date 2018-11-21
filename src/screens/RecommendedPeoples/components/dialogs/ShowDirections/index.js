@@ -84,10 +84,10 @@ class ShowDirections extends React.Component {
                             <IconButton color="inherit" onClick={onClose} aria-label="Close">
                                 <CloseIcon />
                             </IconButton>
-                            <Typography variant="h6" color="inherit" className={classes.flex}>
+                            <Typography variant="h6" color="primary" className={classes.flex}>
                                 Direction
               </Typography>
-                            <Button color="inherit" onClick={this.getDirections}>
+                            <Button color="primary" onClick={this.getDirections}>
                                 Get Directions
               </Button>
                         </Toolbar>

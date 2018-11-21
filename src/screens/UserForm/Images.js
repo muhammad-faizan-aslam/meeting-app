@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from '../../config/firebase'
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import APPLOGO from '../../Components/AppLogo/AppLogo'
 
@@ -43,7 +42,7 @@ class FormTwo extends React.Component {
             
             this.props.history.push('/',{})
         }
-        // console.log('CHOOSE IMAGES FORM PROPS RECEIVES ', this.props.history.location.state)
+        // // console.log('CHOOSE IMAGES FORM PROPS RECEIVES ', this.props.history.location.state)
     };
 
     handlePics(e){
@@ -58,21 +57,21 @@ class FormTwo extends React.Component {
          }else{
             alert("Not select images more than 3 ")
          }
-        //  console.log("Imageholder",imagesArr)
+        //  // console.log("Imageholder",imagesArr)
      }
 
     handleSubmit = (e) => {
         e.preventDefault();
         const { imagesArr , imagesUrlArr } = this.state;
         const { state }= this.props.history.location ;
-        // console.log('images choose =========>',state)
+        // // console.log('images choose =========>',state)
         e.preventDefault()
          if(imagesArr.length === 3 ){
-            //  console.log("--------------------", imagesArr)
+            //  // console.log("--------------------", imagesArr)
         
              imagesArr.map(img=>{
  
-                //   console.log("singleimg", img.name)
+                //   // console.log("singleimg", img.name)
                  let filename = img.name
              let StorageRef = firebase.storage().ref(`images/${filename}`) ;
                  StorageRef.put(img)
@@ -94,15 +93,13 @@ class FormTwo extends React.Component {
                      this.props.history.push('/BeveragesAndTime',{...state,imagesUrlArr})
                    }
                    
-                    //  return console.log('image URL',imagesUrlArr)
+                    //  return // console.log('image URL',imagesUrlArr)
                  })
  
                  return img
                  
              })
-            
-            //  alert("3 hen")
-            
+          
          }
          else{
             alert("Please Select All three images")

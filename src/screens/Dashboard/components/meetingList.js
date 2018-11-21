@@ -1,61 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-// import 'materialize-css';
-// import 'materialize-css/dist/css/materialize.min.css';
-
+import Avatar from '@material-ui/core/Avatar';
 
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    flexGrow: 1,
+    margin:'10px',
+    
   },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
     color: theme.palette.text.secondary,
+  
   },
-  secondaryText: {
-    color: theme.palette.text.secondary,
+  row: {
+    display: 'flex',
+    justifyContent: 'center',
   },
-  icon: {
-    verticalAlign: 'bottom',
-    height: 20,
-    width: 20,
+  avatar: {
+    margin: 10,
   },
-  details: {
-    alignItems: 'center',
-  },
-  column: {
-    flexBasis: '33.33%',
-  },
-  helper: {
-    borderLeft: `2px solid ${theme.palette.divider}`,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-  button: {
-    background: 'transparent',
-    color: '#FE6B8B',
-    boxShadow: 'none',
-  },
-  round: {
-    borderRadius: '50%',
-  },
-  margin: {
-      marginTop: theme.spacing.unit * 2
-  },
-  textCenter: {
-      textAlign: 'center',
+  bigAvatar: {
+    margin: 5,
+    width: 100,
+    height: 100,
   },
 });
 
-const MeetingList = (props) => {
+const MeetingList = (props)=> {
+ 
+
   let list = [];
 
   const {
@@ -65,11 +45,9 @@ const MeetingList = (props) => {
    
   } = props;
 
- console.log('meetingLIST props',lists);
+//  console.log('meetingLIST props',lists);
 
-//  const singlelist = lists.padding ;
- console.log('list single',lists.pending);
- console.log('value',value)
+//  console.log('value',value)
 
   switch (value) {
     case 0:
@@ -92,64 +70,71 @@ const MeetingList = (props) => {
     default:
       break;
   }
-  
+
+// console.log('list',list)
+
   return (
-    <div>
-  {
-
-list.length ?
-        
       <div>
-           <table class="responsive-table" class="centered" >
-        <thead>
-          <tr>
-              <th>IMAGE</th>
-              <th>USERNAME</th>
-              <th>STATUS</th>
-              <th>LOCATION</th>
-              <th>DATE & TIME</th>
+      {
+          list.length 
+           ?
+          <div className={classes.root}>
+          <Grid item container spacing={16}>
+          {
+              list.map((item, index)=>{
+               
+           return <Grid item xs={12} sm={3} key={index} >
+              <Paper className={classes.paper}>
+              <Grid >
+            <Grid >
+            <div className={classes.row}>
+          <Avatar alt="ProfilePic" src={item.swappedUserDisplayPic}  className={classes.bigAvatar} />
+        
+        </div>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid item xs container direction="column">
+                <Grid item  xs>
+                  <Typography gutterBottom variant="subtitle1">
+                    DISPLAY NAME : {item.swappedUserDisplayName}
+                  </Typography>
+                  <Typography gutterBottom>LOCATION : {item.address}</Typography>
+                  <Typography color="textSecondary">DATE | TIME : {item.date} | {item.time}</Typography>
+
+                  <Typography color="textSecondary">STATUS : {item.status} </Typography>
+                </Grid>
               
-          </tr>
-        </thead>
+              </Grid>
+             
+            </Grid>
+          </Grid>
+              </Paper>
+            </Grid>
+              })
+          }
+    
+          </Grid>
+        </div> 
 
-        <tbody>
-        {
-    list.map(item =>
-          <tr style={{textAlign:'center'}} >
-            <td>
-               
-                <img src={item.swappedUserDisplayPic} alt="" className="responsive-img circle"/>
+        :
 
-               
-            </td>
-            <td>{item.swappedUserDisplayName}</td>
-            <td>{item.status}</td>
-            <td>{item.address}</td>
-            <td> {item.date} | {item.time}</td>
-          </tr>
-    )}
-          
-        </tbody>
-      </table>
-
-       
-      </div>
-   
-:
-<div>
-<Typography
-        variant='display1'
-        className={`${classes.textCenter} ${classes.margin}`}
-    >
-        No Meetings Available
-    </Typography>
-</div>
-   
-     
-    }
-   </div>
-   
+        <div>
+           <Typography
+            variant='display1'
+            className={`${classes.textCenter} ${classes.margin}`}>  
+            No Meetings Available
+            </Typography>
+        </div>
+      }
+     </div>
   );
+
+ 
 }
+
+
+MeetingList.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(MeetingList);

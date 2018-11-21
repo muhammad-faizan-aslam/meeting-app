@@ -6,7 +6,7 @@ class AppLogo extends Component {
         return (
             <div>
                 
-                <img src={Logo} className="img-responsive" alt="Image"/>
+                <img src={Logo} className="img-responsive" alt="logo"/>
                 
             </div>
         );

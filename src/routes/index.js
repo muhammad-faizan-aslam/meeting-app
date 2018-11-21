@@ -1,13 +1,10 @@
 import React from 'react';
 import {  Route } from 'react-router-dom'
-// import LoginFb from '../screens/Loginfb'
-import FbLogin from '../screens/Loginfb'
 import NameAndPhoneno from '../screens/UserForm/NameAndPhoneno'
 import Images from '../screens/UserForm/Images'
 import BeveragesAndTime from '../screens/UserForm/BeveragesAndTime'
 import Location from '../screens/UserForm/Location'
 import HeaderAppBar from '../Components/DashboardHeader/AppbarHeader'
-// import Map   from '../screens/Map/Map'
 import Dashboard from '../screens/Dashboard'
 import Notification from '../screens/Notifications'
 import Card from '../screens/RecommendedPeoples/RecommendedPeoples'
@@ -27,7 +24,8 @@ export default (props)=> {
         
     } = props.ScreenRoutes;
 
-        console.log('routes props',props)
+// console.log('routes props',props)
+
        return (
 
          <div>

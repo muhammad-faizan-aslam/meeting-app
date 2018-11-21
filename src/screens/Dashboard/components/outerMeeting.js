@@ -28,7 +28,8 @@ class OuterMeetingComponent extends React.Component {
             classes
         } = this.props;
         const { value } = this.state;
-        console.log('OUTERmeeting props',lists);
+
+// console.log('OUTERmeeting props',lists);
 
         return (
             <div className={classes.root}>

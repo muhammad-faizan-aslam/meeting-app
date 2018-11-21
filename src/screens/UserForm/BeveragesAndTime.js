@@ -35,7 +35,7 @@ class Form3 extends Component {
           this.props.history.push('/',{})
       }
       //  const { state }= this.props.history.location ;
-        // console.log('beverages select =========>',state)
+        // // console.log('beverages select =========>',state)
       
     }
     

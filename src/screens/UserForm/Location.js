@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import firebase from '../../config/firebase'
-import APPLOGO from '../../Components/AppLogo/AppLogo'
 
 
 
@@ -38,12 +37,12 @@ gotoDashboard(){
           const { coords } = this.state ;
           const { state }= this.props.history.location ;
 
-          console.log('MAP  LOCATION  =========>',state)
-          console.log('MAP  LOCATION COORDs =========>',coords)
+          // console.log('MAP  LOCATION  =========>',state)
+          // console.log('MAP  LOCATION COORDs =========>',coords)
 
           const UID = firebase.auth().currentUser.uid ;
 
-          console.log('MAP  LOCATION UID =========>',UID)
+          // console.log('MAP  LOCATION UID =========>',UID)
 
           let db = firebase.database()
             
@@ -82,7 +81,7 @@ setPosition(){
           }
 
 updateCoords({latitude,longitude}){
-  // console.log("long",longitude)
+  // // console.log("long",longitude)
             this.setState({
                    coords : {latitude,longitude}
             })
@@ -141,7 +140,7 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
      draggable={true}
       
      onDragEnd={ position => {
-          console.log("run",position.latLng.lat())
+          // console.log("run",position.latLng.lat())
           props.updateCoords({latitude: position.latLng.lat(), longitude: position.latLng.lng()})
       }}
      

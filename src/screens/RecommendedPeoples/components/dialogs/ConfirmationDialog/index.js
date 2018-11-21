@@ -36,10 +36,10 @@ class ConfirmationDialog extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button className={classes.button} onClick={() => closeConfirmDialog(false)}>
+            <Button variant="text" color="primary" onClick={() => closeConfirmDialog(false)}>
               No
             </Button>
-            <Button className={classes.button} onClick={() => closeConfirmDialog(true)} autoFocus>
+            <Button  variant="text" color="primary" onClick={() => closeConfirmDialog(true)} autoFocus>
               Yes
             </Button>
           </DialogActions>

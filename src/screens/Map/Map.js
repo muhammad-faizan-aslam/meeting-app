@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import firebase from '../../config/firebase'
+import swal from 'sweetalert2'
 
 
 
@@ -37,12 +38,12 @@ gotoDashboard(e){
           const { coords } = this.state ;
           const { state }= this.props.history.location ;
 
-          console.log('MAP  LOCATION  =========>',state)
-          console.log('MAP  LOCATION COORDs =========>',coords)
+          // console.log('MAP  LOCATION  =========>',state)
+          // console.log('MAP  LOCATION COORDs =========>',coords)
 
           const UID = firebase.auth().currentUser.uid ;
 
-          console.log('MAP  LOCATION UID =========>',UID)
+          // console.log('MAP  LOCATION UID =========>',UID)
 
           let db = firebase.database()
             
@@ -58,7 +59,7 @@ gotoDashboard(e){
                                     this.props.history.replace('/dashboard',snapshot.val())
                                   }
                 else{
-                     alert('USER DELETED')
+                  swal('USER DELETED')
                     }
       
     })

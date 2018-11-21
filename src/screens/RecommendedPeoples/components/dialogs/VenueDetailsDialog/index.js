@@ -139,6 +139,7 @@ class ScrollDialog extends React.Component {
                         className={classes.button}
                         type='submit'
                         variant="contained"
+                        style={{ color:"blue"}}
                       >
                         Search
                 </Button>
@@ -159,10 +160,10 @@ class ScrollDialog extends React.Component {
           </DialogContent>
           <Divider />
           <DialogActions>
-            <Button className={classes.button} onClick={setNearestPlaces}>
+            <Button className={classes.button} style={{ color:"blue"}} onClick={setNearestPlaces}>
               Nearest Places
             </Button>
-            <Button className={classes.button} onClick={this.goToDateAndTime}>
+            <Button className={classes.button} style={{ color:"blue"}} onClick={this.goToDateAndTime}>
               Next
             </Button>
           </DialogActions>
